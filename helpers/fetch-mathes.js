@@ -13,7 +13,7 @@ module.exports = {
 
             async function startFetching() {
                 let match = leagues[position]
-                let browser = await puppeteer.launch({ args: ["--no-sandbox", "--disable-setuid-sandbox"]})
+                let browser = await puppeteer.launch({ args: ["--no-sandbox", "--disable-setuid-sandbox"] })
                 let page = await browser.newPage()
                 console.log('||||||||||||||||||||||||||||||||||||||||||||||||Updating ' + leagues[position] + '||||||||||||||||||||||||||||||||||||||||||||||||');
                 await page.setViewport({ height: 0, width: 0 })
@@ -39,29 +39,30 @@ module.exports = {
                                 if (foundMatch.length == 0) {
                                     console.log({ teamA, teamB, date, time, key: teamA + teamB + date + time });
                                     ongogingMatches.push({ teamA, teamB, date, time, key: teamA + teamB + date + time })
-                                    onDetailsFetched()
+                                    onDetailsFetched(browser)
                                 } else {
-                                    onDetailsFetched()
+                                    onDetailsFetched(browser)
                                 }
                             } else {
-                                onDetailsFetched()
+                                onDetailsFetched(browser)
                             }
                         } else {
-                            onDetailsFetched()
+                            onDetailsFetched(browser)
                         }
                     }
 
 
-                    function onDetailsFetched() {
+                    async function onDetailsFetched(browser) {
                         i = i + 1
                         if (matches[i] != null) {
                             fetchDetails()
                         } else {
-                            onMatchFetched()
+                            onMatchFetched(browser)
                         }
                     }
 
-                    function onMatchFetched() {
+                    async function onMatchFetched(browser) {
+                        await browser.close()
                         position = position + 1
                         console.log(leagues.length - 1, position);
                         if (leagues[position] != null) {
