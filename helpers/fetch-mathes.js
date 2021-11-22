@@ -1,0 +1,110 @@
+let puppeteer = require('puppeteer')
+let fs = require('fs')
+const { getMonthNumberFromName, convertTime12to24 } = require('./time-utils')
+module.exports = {
+    fetchMatches: () => {
+        return new Promise((resolve, reject) => {
+
+            console.log('||||||||||||||||||||||||||||||||||||||||||||||||Updating matches||||||||||||||||||||||||||||||||||||||||||||||||');
+
+            let leagues = ['ISL', 'Premier League', 'La Liga', 'UEFA Champions League']
+            let position = 0
+            let ongogingMatches = []
+
+            async function startFetching() {
+                let match = leagues[position]
+                let browser = await puppeteer.launch({ headless: true })
+                let page = await browser.newPage()
+                console.log('||||||||||||||||||||||||||||||||||||||||||||||||Updating ' + leagues[position] + '||||||||||||||||||||||||||||||||||||||||||||||||');
+                await page.setViewport({ height: 0, width: 0 })
+                await page.goto('https://www.google.com/?gl=in&hl=en&pws=0&gws_rd=cr')
+                let searchBox = await page.waitForXPath('//input[@class="gLFyf gsfi"]')
+                await searchBox.type(match + '\n')
+                await (await page.waitForXPath('//div[@class="SwsxUd"]')).click()
+                setTimeout(async () => {
+                    let matches = await page.$$('.KAIX8d')
+                    let i = 0
+                    async function fetchDetails() {
+                        let match = matches[i]
+                        let teams = await match.$$('.imspo_mt__tt-w')
+                        if (teams.length == 2) {
+                            let teamA = await page.evaluate(el => el.textContent, teams[0])
+                            let teamB = await page.evaluate(el => el.textContent, teams[1])
+                            let date = await page.evaluate(el => el.textContent, (await match.$('.imspo_mt__date')))
+                            let time = await page.evaluate(el => el.textContent, (await match.$('.imspo_mt__ndl-p')))
+                            if (date.includes('Today') | date.includes('Tomorrow')) {
+                                let foundMatch = ongogingMatches.filter(obj => {
+                                    return obj.key === teamA + teamB + date + time
+                                })
+                                if (foundMatch.length == 0) {
+                                    ongogingMatches.push({ teamA, teamB, date, time, key: teamA + teamB + date + time })
+                                    onDetailsFetched()
+                                } else {
+                                    onDetailsFetched()
+                                }
+                            } else {
+                                onDetailsFetched()
+                            }
+                        } else {
+                            onDetailsFetched()
+                        }
+                    }
+
+
+                    function onDetailsFetched() {
+                        i = i + 1
+                        if (matches[i] != null) {
+                            fetchDetails()
+                        } else {
+                            onMatchFetched()
+                        }
+                    }
+
+                    function onMatchFetched() {
+                        position = position + 1
+                        console.log(leagues.length - 1, position);
+                        if (leagues[position] != null) {
+                            startFetching()
+                        } else {
+                            ongogingMatches.forEach((match, i) => {
+                                ongogingMatches[i].time24 = convertTime12to24(match.time)
+                            })
+                            ongogingMatches.sort(function (a, b) {
+                                let aDate = new Date()
+                                let bDate = new Date()
+                                if (a.date == 'Tomorrow') {
+                                    aDate.setUTCDate(aDate.getUTCDate() + 1)
+                                }
+                                if (b.date == 'Tomorrow') {
+                                    bDate.setUTCDate(bDate.getUTCDate() + 1)
+                                }
+                                aDate.setHours(a.time24.split(':')[0])
+                                aDate.setMinutes(a.time24.split(':')[1]+2)
+
+                                bDate.setHours(b.time24.split(':')[0])
+                                bDate.setMinutes(b.time24.split(':')[1]+2)
+
+                                a.dobj = aDate
+                                b.dobj = bDate
+
+                                return aDate - bDate;
+                            });
+                            fs.writeFileSync(__dirname + '/database/matches.json', JSON.stringify(ongogingMatches))
+                            console.log('Updattion compleated');
+                            resolve()
+                        }
+                    }
+
+                    fetchDetails()
+
+                }, 5000)
+
+
+            }
+            setTimeout(() => {
+                startFetching()
+            }, 1000)
+
+        })
+    }
+}

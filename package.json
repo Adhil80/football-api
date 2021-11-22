@@ -1,0 +1,25 @@
+{
+  "name": "live-match",
+  "version": "1.0.0",
+  "description": "This API fetchs football matches and also give live match details",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Adhil80/football-api.git"
+  },
+  "author": "adhil80",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Adhil80/football-bot-tele/issues"
+  },
+  "homepage": "https://github.com/Adhil80/football-bot-tele#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "grammy": "^1.4.2",
+    "puppeteer": "^10.4.0"
+  }
+}
