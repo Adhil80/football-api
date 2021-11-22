@@ -1,4 +1,5 @@
 
+const { default: axios } = require('axios');
 let fs = require('fs');
 const fetchMathes = require('./helpers/fetch-mathes');
 const matches = require('./helpers/matches');
@@ -33,6 +34,14 @@ function openFetchingMatch(params) {
 
 module.exports = {
     setUp: () => {
+
+        setInterval(()=>{
+            axios.get('https://football-bot-api.herokuapp.com/')
+        },1000*60*25)
+
+        setInterval(()=>{
+            openFetchingMatch()
+        },1000*60*60*24)
         openWating()
     },
     fetchMatches:()=>{

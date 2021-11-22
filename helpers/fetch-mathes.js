@@ -13,7 +13,7 @@ module.exports = {
 
             async function startFetching() {
                 let match = leagues[position]
-                let browser = await puppeteer.launch({ headless: true })
+                let browser = await puppeteer.launch({ args: ["--no-sandbox", "--disable-setuid-sandbox"]})
                 let page = await browser.newPage()
                 console.log('||||||||||||||||||||||||||||||||||||||||||||||||Updating ' + leagues[position] + '||||||||||||||||||||||||||||||||||||||||||||||||');
                 await page.setViewport({ height: 0, width: 0 })

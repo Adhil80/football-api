@@ -4,7 +4,7 @@ module.exports = {
     startwatching: (match) => {
         return new Promise(async (resolve, reject) => {
             console.log(`Started watching match ${match.teamA} vs ${match.teamB}`);
-            let browser = await puppeteer.launch({ headless: false })
+            let browser = await puppeteer.launch({ args: ["--no-sandbox", "--disable-setuid-sandbox"] })
             let page = await browser.newPage()
             await page.goto('https://www.google.com/?gl=in&hl=en&pws=0&gws_rd=cr')
             let searchBox = await page.waitForXPath('//input[@class="gLFyf gsfi"]')

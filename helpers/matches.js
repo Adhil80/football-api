@@ -1,7 +1,9 @@
 let fs = require('fs')
+const fetchMathes = require('./fetch-mathes')
 const { getMonthNumberFromName, msToTime } = require('./time-utils')
 const { startwatching } = require('./watch-match')
 const watchMatch = require('./watch-match')
+let first = true
 module.exports = {
     getMatches: () => {
         return new Promise(async (reslove, resject) => {
@@ -32,6 +34,13 @@ module.exports = {
                     resolve(() => {
                         clearTimeout(startWaiting)
                     })
+                }else{
+                    if (first) {
+                        first = false
+                        fetchMathes.fetchMatches().then(()=>{
+                            callback()
+                        })
+                    }
                 }
             }
             startWaiting()
