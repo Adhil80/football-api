@@ -2,8 +2,8 @@ let express = require('express');
 const { fetchMatches } = require('./helpers/fetch-mathes');
 const onStartConfig = require('./onStartConfig');
 let router = express()
-router.listen(3000, () => {
-    console.log(`server started at port 3000\nurl:http://localhost:3000`);
+router.listen(process.env.PORT || 5000, () => {
+    console.log(`server started at port 5000\nurl:http://localhost:5000`);
 })
 router.get('/',async (req, res) => {
 
