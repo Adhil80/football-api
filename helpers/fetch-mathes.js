@@ -7,7 +7,7 @@ module.exports = {
 
             console.log('||||||||||||||||||||||||||||||||||||||||||||||||Updating matches||||||||||||||||||||||||||||||||||||||||||||||||');
 
-            let leagues = ['ISL', 'Premier League', 'La Liga', 'UEFA Champions League']
+            let leagues = ['ISL', 'Premier League', 'La Liga', 'UEFA Champions League','Seria A','League 1','BundesLiga']
             let position = 0
             let ongogingMatches = []
 
@@ -37,6 +37,7 @@ module.exports = {
                                     return obj.key === teamA + teamB + date + time
                                 })
                                 if (foundMatch.length == 0) {
+                                    console.log({ teamA, teamB, date, time, key: teamA + teamB + date + time });
                                     ongogingMatches.push({ teamA, teamB, date, time, key: teamA + teamB + date + time })
                                     onDetailsFetched()
                                 } else {
