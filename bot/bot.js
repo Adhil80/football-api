@@ -1,5 +1,7 @@
 const { Bot } = require("grammy");
-const bot = new Bot("2070988803:AAHtmFA3xVhQp2BGEHx4nJ-KVICaMnwk1Jg");
+require("dotenv").config();
+const bot = new Bot(process.env.BOT_TOKEN);
+
 bot.start();
 bot.on("message:text", (ctx) => {
     ctx.reply("Echo: " + ctx.message.text)

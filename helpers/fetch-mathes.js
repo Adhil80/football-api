@@ -81,17 +81,17 @@ module.exports = {
                                 if (b.date == 'Tomorrow') {
                                     bDate.setUTCDate(bDate.getUTCDate() + 1)
                                 }
-                                aDate.setHours(a.time24.split(':')[0]-5)
-                                aDate.setMinutes(a.time24.split(':')[1]+2)
+                                aDate.setHours(a.time24.split(':')[0])
+                                aDate.setMinutes(a.time24.split(':')[1])
 
-                                bDate.setHours(b.time24.split(':')[0]-5)
-                                bDate.setMinutes(b.time24.split(':')[1]+2)
+                                bDate.setHours(b.time24.split(':')[0])
+                                bDate.setMinutes(b.time24.split(':')[1])
+
 
                                 
 
                                 a.dobj = aDate
                                 b.dobj = bDate
-                                console.log(a.dobj,b.dobj,new Date());
 
                                 return aDate - bDate;
                             });
@@ -103,7 +103,6 @@ module.exports = {
                                 msg+=`\n👉 ${match.teamA} vs ${match.teamB} (${match.league} . ${match.date} at ${match.time})`
                             });
                             await bot.sendMessage(msg)
-                            await bot.sendMessage(new Date())
 
                             resolve()
                         }
