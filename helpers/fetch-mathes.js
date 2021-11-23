@@ -39,7 +39,7 @@ module.exports = {
                                 })
                                 if (foundMatch.length == 0) {
                                     console.log({ teamA, teamB, date, time, key: teamA + teamB + date + time });
-                                    ongogingMatches.push({ teamA, teamB, date, time, key: teamA + teamB + date + time,leagues:leagues[position] })
+                                    ongogingMatches.push({ teamA, teamB, date, time, key: teamA + teamB + date + time,league:leagues[position] })
                                     onDetailsFetched(browser)
                                 } else {
                                     onDetailsFetched(browser)
