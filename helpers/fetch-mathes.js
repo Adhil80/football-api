@@ -81,10 +81,10 @@ module.exports = {
                                 if (b.date == 'Tomorrow') {
                                     bDate.setUTCDate(bDate.getUTCDate() + 1)
                                 }
-                                aDate.setHours(a.time24.split(':')[0]-7)
+                                aDate.setHours(a.time24.split(':')[0]-4)
                                 aDate.setMinutes(a.time24.split(':')[1]+2)
 
-                                bDate.setHours(b.time24.split(':')[0]-7)
+                                bDate.setHours(b.time24.split(':')[0]-4)
                                 bDate.setMinutes(b.time24.split(':')[1]+2)
 
                                 
