@@ -87,6 +87,13 @@ module.exports = {
                                 bDate.setHours(b.time24.split(':')[0])
                                 bDate.setMinutes(b.time24.split(':')[1]+2)
 
+
+                                function convertTZ(date, tzString) {
+                                    return new Date((typeof date === "string" ? new Date(date) : date).toLocaleString("en-US", {timeZone: tzString}));   
+                                }
+
+                                aDate = convertTZ(aDate,'Asia/Kolkata')
+                                bDate = convertTZ(bDate,'Asia/Kolkata')
                                 a.dobj = aDate
                                 b.dobj = bDate
 
