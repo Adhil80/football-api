@@ -1,6 +1,10 @@
 const { Bot } = require("grammy");
 const bot = new Bot("2070988803:AAHtmFA3xVhQp2BGEHx4nJ-KVICaMnwk1Jg");
 bot.start();
+bot.on("message:text", (ctx) => {
+    ctx.reply("Echo: " + ctx.message.text)
+});
+
 
 module.exports = {
     sendMessage: async (text) => {
