@@ -29,7 +29,7 @@ module.exports = {
                             fs.writeFileSync(__dirname + '/database/matches.json', JSON.stringify(matches))
                             callback()
                         })
-                    }, timeDiff+1000*2)
+                    }, timeDiff+1000*5)
 
                     resolve(() => {
                         clearTimeout(startWaiting)
