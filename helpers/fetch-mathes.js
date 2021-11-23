@@ -97,7 +97,7 @@ module.exports = {
 
                             let msg = `TOADAYS MATCHES\n🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩`
                             ongogingMatches.forEach(match => {
-                                msg+=`\n👉 ${match.teamA} vs ${match.teamB} (${match.league})`
+                                msg+=`\n👉 ${match.teamA} vs ${match.teamB} (${match.league} . ${match.date} at ${match.time})`
                             });
                             await bot.sendMessage(msg)
 
