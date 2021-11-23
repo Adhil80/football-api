@@ -8,7 +8,7 @@ module.exports = {
 
             console.log('||||||||||||||||||||||||||||||||||||||||||||||||Updating matches||||||||||||||||||||||||||||||||||||||||||||||||');
 
-            let leagues = ['ISL', 'Premier League', 'La Liga', 'UEFA Champions League', 'Seria A', 'League 1', 'BundesLiga']
+            let leagues = ['ISL', 'Premier League', 'La Liga', 'UEFA Champions League','Seria A','League 1','BundesLiga']
             let position = 0
             let ongogingMatches = []
 
@@ -39,7 +39,7 @@ module.exports = {
                                 })
                                 if (foundMatch.length == 0) {
                                     console.log({ teamA, teamB, date, time, key: teamA + teamB + date + time });
-                                    ongogingMatches.push({ teamA, teamB, date, time, key: teamA + teamB + date + time, league: leagues[position] })
+                                    ongogingMatches.push({ teamA, teamB, date, time, key: teamA + teamB + date + time,league:leagues[position] })
                                     onDetailsFetched(browser)
                                 } else {
                                     onDetailsFetched(browser)
@@ -82,17 +82,16 @@ module.exports = {
                                     bDate.setUTCDate(bDate.getUTCDate() + 1)
                                 }
                                 aDate.setHours(a.time24.split(':')[0])
-                                aDate.setMinutes(a.time24.split(':')[1] + 2)
+                                aDate.setMinutes(a.time24.split(':')[1]+2)
 
                                 bDate.setHours(b.time24.split(':')[0])
-                                bDate.setMinutes(b.time24.split(':')[1] + 2)
+                                bDate.setMinutes(b.time24.split(':')[1]+2)
 
+                                
 
-
-                                a.dobj = aDate.toLocaleString("en-US", { timeZone: "Asia/Kolkata" })
-                                b.dobj = bDate.toLocaleString("en-US", { timeZone: "Asia/Kolkata" })
-
-                                console.log(a.dobj, b.dobj);
+                                a.dobj = aDate
+                                b.dobj = bDate
+                                console.log(a.dobj,b.dobj,new Date());
 
                                 return aDate - bDate;
                             });
@@ -101,7 +100,7 @@ module.exports = {
 
                             let msg = `TOADAYS MATCHES\n🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩`
                             ongogingMatches.forEach(match => {
-                                msg += `\n👉 ${match.teamA} vs ${match.teamB} (${match.league} . ${match.date} at ${match.time})`
+                                msg+=`\n👉 ${match.teamA} vs ${match.teamB} (${match.league} . ${match.date} at ${match.time})`
                             });
                             await bot.sendMessage(msg)
                             await bot.sendMessage(new Date())
