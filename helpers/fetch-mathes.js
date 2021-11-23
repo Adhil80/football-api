@@ -1,6 +1,7 @@
 let puppeteer = require('puppeteer')
 let fs = require('fs')
 const { getMonthNumberFromName, convertTime12to24 } = require('./time-utils')
+const bot = require('../bot/bot')
 module.exports = {
     fetchMatches: () => {
         return new Promise((resolve, reject) => {
@@ -38,7 +39,7 @@ module.exports = {
                                 })
                                 if (foundMatch.length == 0) {
                                     console.log({ teamA, teamB, date, time, key: teamA + teamB + date + time });
-                                    ongogingMatches.push({ teamA, teamB, date, time, key: teamA + teamB + date + time })
+                                    ongogingMatches.push({ teamA, teamB, date, time, key: teamA + teamB + date + time,leagues:leagues[position] })
                                     onDetailsFetched(browser)
                                 } else {
                                     onDetailsFetched(browser)
@@ -93,6 +94,13 @@ module.exports = {
                             });
                             fs.writeFileSync(__dirname + '/database/matches.json', JSON.stringify(ongogingMatches))
                             console.log('Updattion compleated');
+
+                            let msg = `TOADAYS MATCHES\n🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩`
+                            ongogingMatches.forEach(match => {
+                                msg+=`\n👉 ${match.teamA} vs ${match.teamB} (${match.league})`
+                            });
+                            await bot.sendMessage(msg)
+
                             resolve()
                         }
                     }
