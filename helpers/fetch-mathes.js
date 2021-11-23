@@ -100,6 +100,7 @@ module.exports = {
                                 msg+=`\n👉 ${match.teamA} vs ${match.teamB} (${match.league} . ${match.date} at ${match.time})`
                             });
                             await bot.sendMessage(msg)
+                            await bot.sendMessage(new Date())
 
                             resolve()
                         }
