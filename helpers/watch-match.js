@@ -40,6 +40,7 @@ module.exports = {
                     }, 1000 * 10)
                     resolve()
                 } catch (error) {
+                    console.log(error);
                     setTimeout(() => {
                         start()
                     }, 1000*60*2);
