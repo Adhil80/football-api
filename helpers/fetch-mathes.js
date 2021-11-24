@@ -115,14 +115,15 @@ module.exports = {
 
 
                 }
+                setTimeout(() => {
+                    startFetching()
+                }, 1000)
             } catch (error) {
                 console.log(error);
             }
 
 
-            setTimeout(() => {
-                startFetching()
-            }, 1000)
+
 
         })
     }
