@@ -3,9 +3,6 @@ require("dotenv").config();
 const bot = new Bot(process.env.BOT_TOKEN);
 
 bot.start();
-bot.on("message:text", (ctx) => {
-    ctx.reply("Echo: " + ctx.message.text)
-});
 
 
 module.exports = {
