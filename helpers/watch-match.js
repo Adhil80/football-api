@@ -3,7 +3,7 @@ const { sendMessage, editMessage } = require('../bot/bot');
 module.exports = {
     startwatching: (match) => {
         return new Promise(async (resolve, reject) => {
-            function start() {
+            async function start() {
                 try {
                     console.log(`Started watching match ${match.teamA} vs ${match.teamB}`);
                     let browser = await puppeteer.launch({ args: ["--no-sandbox", "--disable-setuid-sandbox"] })
