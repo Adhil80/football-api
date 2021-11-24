@@ -20,7 +20,7 @@ module.exports = {
                 let comingMatch = matches[0]
                 if (comingMatch != null) {
                     let now = new Date()
-                    let timeDiff = new Date(comingMatch.dobj) - now + (1000 * 60 * 2)
+                    let timeDiff = new Date(comingMatch.dobj) - now + (1000 * 60 * 4)
                     console.log(timeDiff);
                     console.log(msToTime(timeDiff));
                     let startWaiting = setTimeout(() => {

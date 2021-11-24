@@ -20,6 +20,8 @@ module.exports = {
 
                     let msg_id = null
                     let oldMsg = null
+                    let oldTime = 0
+                    let times = 0
                     let watching_match = setInterval(async () => {
                         let time = await page.evaluate(el => el.textContent, timeE)
                         let teamAGoal = await page.evaluate(el => el.textContent, teamAGoalE)
@@ -34,13 +36,20 @@ module.exports = {
                                 await editMessage(oldMsg, msg_id)
                             }
                         }
-                        if (time == 'Live') {
+
+                        if (oldTime==time) {
+                            times = times+1
+                        }else{
+                            times = 0
+                        }
+                        oldTime = time
+                        if (times > 20) {
                             oldMsg = `⚽⚽⚽⚽⚽⚽⚽⚽⚽\n${match.league}\n⛳⛳⛳⛳⛳⛳⛳⛳⛳\n${match.teamA} VS ${match.teamB}\n⛳⛳⛳⛳⛳⛳⛳⛳⛳\nTIME : Full-time\n${match.teamA} : ${teamAGoal}\n${match.teamB} : ${teamBGoal}\n⚽⚽⚽⚽⚽⚽⚽⚽⚽\n📍📍LIVE UPDATION ENDED📍📍`
                             await editMessage(oldMsg, msg_id)
                             await browser.close()
                             clearInterval(watching_match)
                         }
-                    }, 1000 * 10)
+                    }, 1000 * 30)
                     resolve()
                 } catch (error) {
                     console.log(error);
