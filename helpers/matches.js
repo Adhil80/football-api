@@ -20,8 +20,8 @@ module.exports = {
                 let comingMatch = matches[0]
                 if (comingMatch != null) {
                     let now = new Date()
-                    let timeDiff = new Date(comingMatch.dobj) - now
-                    console.log(timeDiff+(1000*60*2));
+                    let timeDiff = new Date(comingMatch.dobj) - now + (1000 * 60 * 2)
+                    console.log(timeDiff);
                     console.log(msToTime(timeDiff));
                     let startWaiting = setTimeout(() => {
                         startwatching(matches[0]).then(() => {
@@ -29,15 +29,15 @@ module.exports = {
                             fs.writeFileSync(__dirname + '/database/matches.json', JSON.stringify(matches))
                             callback()
                         })
-                    }, timeDiff+(1000*60*2))
+                    }, timeDiff )
 
                     resolve(() => {
                         clearTimeout(startWaiting)
                     })
-                }else{
+                } else {
                     if (first) {
                         first = false
-                        fetchMathes.fetchMatches().then(()=>{
+                        fetchMathes.fetchMatches().then(() => {
                             callback()
                         })
                     }
