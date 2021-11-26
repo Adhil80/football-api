@@ -43,7 +43,7 @@ module.exports = {
                             times = 0
                         }
                         oldTime = time
-                        if (times > 20) {
+                        if (times > 30) {
                             oldMsg = `⚽⚽⚽⚽⚽⚽⚽⚽⚽\n${match.league}\n⛳⛳⛳⛳⛳⛳⛳⛳⛳\n${match.teamA} VS ${match.teamB}\n⛳⛳⛳⛳⛳⛳⛳⛳⛳\nTIME : Full-time\n${match.teamA} : ${teamAGoal}\n${match.teamB} : ${teamBGoal}\n⚽⚽⚽⚽⚽⚽⚽⚽⚽\n📍📍LIVE UPDATION ENDED📍📍`
                             await editMessage(oldMsg, msg_id)
                             await browser.close()

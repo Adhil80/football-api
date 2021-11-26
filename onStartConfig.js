@@ -1,6 +1,7 @@
 
 const { default: axios } = require('axios');
 let fs = require('fs');
+const bot = require('./bot/bot');
 const fetchMathes = require('./helpers/fetch-mathes');
 const matches = require('./helpers/matches');
 let stopWating = null
@@ -31,6 +32,7 @@ function openFetchingMatch(params) {
         openWating()
     })
 }
+
 
 module.exports = {
     setUp: () => {
