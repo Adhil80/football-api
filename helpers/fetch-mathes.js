@@ -9,7 +9,7 @@ module.exports = {
             try {
                 console.log('||||||||||||||||||||||||||||||||||||||||||||||||Updating matches||||||||||||||||||||||||||||||||||||||||||||||||');
 
-                let leagues = ['ISL', 'Premier League', 'La Liga', 'UEFA Champions League', 'Seria A', 'League 1', 'BundesLiga']
+                let leagues = ['ISL', 'Premier League', 'La Liga', 'UEFA Champions League', 'Seria A', 'League 1', 'BundesLiga','world cup qualifier south america']
                 let position = 0
                 let ongogingMatches = []
 
