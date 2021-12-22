@@ -40,7 +40,7 @@ module.exports = {
     }
 }
 
-bot.on('message', (ctx) => {
+bot.on('message', async (ctx) => {
     if (!fs.existsSync('./users/' + ctx.chat.id)) {
         fs.mkdirSync('./users/' + ctx.chat.id)
         await bot.api.sendMessage(ctx.chat.id, 'Thanks for subscribing the bot')
