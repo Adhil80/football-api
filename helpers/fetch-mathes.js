@@ -1,5 +1,6 @@
 let puppeteer = require('puppeteer')
 let fs = require('fs')
+require('dotenv').config()
 const { getMonthNumberFromName, convertTime12to24 } = require('./time-utils')
 const bot = require('../bot/bot')
 module.exports = {
@@ -9,7 +10,7 @@ module.exports = {
             try {
                 console.log('||||||||||||||||||||||||||||||||||||||||||||||||Updating matches||||||||||||||||||||||||||||||||||||||||||||||||');
 
-                let leagues = ['ISL', 'Premier League', 'La Liga', 'UEFA Champions League', 'Seria A', 'League 1', 'BundesLiga','world cup qualifiers south america']
+                let leagues = ['ISL', 'Premier League', 'La Liga', 'UEFA Champions League', 'League 1', 'BundesLiga']
                 let position = 0
                 let ongogingMatches = []
 
@@ -101,7 +102,7 @@ module.exports = {
 
                                 let msg = `TOADAYS MATCHES\n🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩`
                                 ongogingMatches.forEach(match => {
-                                    msg += `\n👉 ${match.teamA} vs ${match.teamB} (${match.league} . ${match.date} at ${match.time})`
+                                    msg += `\n\n👉 ${match.teamA} vs ${match.teamB} (${match.league}  ${match.date} at ${match.time})`
                                 });
                                 await bot.sendMessage(msg)
 
