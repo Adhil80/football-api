@@ -16,14 +16,7 @@ module.exports = {
 
                 async function startFetching() {
                     let match = leagues[position]
-                    const browserFetcher = puppeteer.createBrowserFetcher();
-                    let revisionInfo = await browserFetcher.download('884014');
-                    browser = await puppeteer.launch(
-                        {
-                            executablePath: revisionInfo.executablePath,
-                            args: ['--no-sandbox', "--disabled-setupid-sandbox"]
-                        }
-                    )
+                    browser = await puppeteer.launch()
                     let page = await browser.newPage()
                     console.log('||||||||||||||||||||||||||||||||||||||||||||||||Updating ' + leagues[position] + '||||||||||||||||||||||||||||||||||||||||||||||||');
                     await page.setViewport({ height: 0, width: 0 })
