@@ -1,6 +1,6 @@
 let express = require('express');
 global.TextEncoder = require("util").TextEncoder;
-
+require('core-js/stable')
 
 const { fetchMatches } = require('./helpers/fetch-mathes');
 const onStartConfig = require('./onStartConfig');
