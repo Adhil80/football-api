@@ -18,7 +18,8 @@ module.exports = {
                     let match = leagues[position]
                     const browser = await puppeteer.launch({
                         executablePath: '/usr/bin/chromium-browser'
-                    })                    let page = await browser.newPage()
+                    })
+                    let page = await browser.newPage()
                     console.log('||||||||||||||||||||||||||||||||||||||||||||||||Updating ' + leagues[position] + '||||||||||||||||||||||||||||||||||||||||||||||||');
                     await page.setViewport({ height: 0, width: 0 })
                     await page.goto('https://www.google.com/?gl=in&hl=en&pws=0&gws_rd=cr')
