@@ -16,8 +16,9 @@ module.exports = {
 
                 async function startFetching() {
                     let match = leagues[position]
-                    let browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox', '--single-process'], })
-                    let page = await browser.newPage()
+                    const browser = await puppeteer.launch({
+                        executablePath: '/usr/bin/chromium-browser'
+                    })                    let page = await browser.newPage()
                     console.log('||||||||||||||||||||||||||||||||||||||||||||||||Updating ' + leagues[position] + '||||||||||||||||||||||||||||||||||||||||||||||||');
                     await page.setViewport({ height: 0, width: 0 })
                     await page.goto('https://www.google.com/?gl=in&hl=en&pws=0&gws_rd=cr')

@@ -8,8 +8,9 @@ module.exports = {
                     console.log(`Started watching match ${match.teamA} vs ${match.teamB}`);
                     //let browser = await puppeteer.launch({ headless:false })
                     
-                    let browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox', '--single-process'], })
-
+                    const browser = await puppeteer.launch({
+                        executablePath: '/usr/bin/chromium-browser'
+                      })
                     let page = await browser.newPage()
                     await page.goto('https://www.google.com/?gl=in&hl=en&pws=0&gws_rd=cr')
                     let searchBox = await page.waitForXPath('//input[@class="gLFyf gsfi"]')
