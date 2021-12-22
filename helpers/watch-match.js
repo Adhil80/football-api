@@ -7,10 +7,9 @@ module.exports = {
                 try {
                     console.log(`Started watching match ${match.teamA} vs ${match.teamB}`);
                     //let browser = await puppeteer.launch({ headless:false })
-                    
-                    const browser = await puppeteer.launch({
-                        executablePath: '/usr/bin/chromium-browser'
-                      })
+
+                    let browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox', '--single-process'], executablePath: '/usr/bin/chromium-browser' })
+
                     let page = await browser.newPage()
                     await page.goto('https://www.google.com/?gl=in&hl=en&pws=0&gws_rd=cr')
                     let searchBox = await page.waitForXPath('//input[@class="gLFyf gsfi"]')
@@ -38,9 +37,9 @@ module.exports = {
                             }
                         }
 
-                        if (oldTime==time) {
-                            times = times+1
-                        }else{
+                        if (oldTime == time) {
+                            times = times + 1
+                        } else {
                             times = 0
                         }
                         oldTime = time
@@ -56,7 +55,7 @@ module.exports = {
                     console.log(error);
                     setTimeout(() => {
                         start()
-                    }, 1000*60*2);
+                    }, 1000 * 60 * 2);
                 }
             }
             start()
