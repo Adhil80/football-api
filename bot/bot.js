@@ -46,3 +46,6 @@ bot.on('message', async (ctx) => {
         await bot.api.sendMessage(ctx.chat.id, 'Thanks for subscribing the bot')
     }
 })
+bot.catch((err)=>{
+    console.log(err);
+})

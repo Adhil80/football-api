@@ -6,7 +6,7 @@ module.exports = {
             async function start() {
                 try {
                     console.log(`Started watching match ${match.teamA} vs ${match.teamB}`);
-                    browser = await puppeteer.launch()
+                    browser = await puppeteer.launch({headless:false})
                     let page = await browser.newPage()
                     await page.goto('https://www.google.com/?gl=in&hl=en&pws=0&gws_rd=cr')
                     let searchBox = await page.waitForXPath('//input[@class="gLFyf gsfi"]')
