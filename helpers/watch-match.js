@@ -1,4 +1,5 @@
 let puppeteer = require('puppeteer');
+const bot = require('../bot/bot');
 const { sendMessage, editMessage } = require('../bot/bot');
 module.exports = {
     startwatching: (match) => {
@@ -6,7 +7,7 @@ module.exports = {
             async function start() {
                 try {
                     console.log(`Started watching match ${match.teamA} vs ${match.teamB}`);
-                    browser = await puppeteer.launch({headless:false})
+                    browser = await puppeteer.launch({ headless: false })
                     let page = await browser.newPage()
                     await page.goto('https://www.google.com/?gl=in&hl=en&pws=0&gws_rd=cr')
                     let searchBox = await page.waitForXPath('//input[@class="gLFyf gsfi"]')
@@ -17,8 +18,7 @@ module.exports = {
 
                     let msg_id = null
                     let oldMsg = null
-                    let oldTime = 0
-                    let times = 0
+                    let end = false
                     let watching_match = setInterval(async () => {
                         let time = await page.evaluate(el => el.textContent, timeE)
                         let teamAGoal = await page.evaluate(el => el.textContent, teamAGoalE)
@@ -33,23 +33,20 @@ module.exports = {
                                 await editMessage(oldMsg, msg_id)
                             }
                         }
-
-                        if (oldTime == time) {
-                            times = times + 1
-                        } else {
-                            times = 0
-                        }
-                        oldTime = time
-                        if (times > 30) {
-                            oldMsg = `⚽⚽⚽⚽⚽⚽⚽⚽⚽\n${match.league}\n⛳⛳⛳⛳⛳⛳⛳⛳⛳\n${match.teamA} VS ${match.teamB}\n⛳⛳⛳⛳⛳⛳⛳⛳⛳\nTIME : Full-time\n${match.teamA} : ${teamAGoal}\n${match.teamB} : ${teamBGoal}\n⚽⚽⚽⚽⚽⚽⚽⚽⚽\n📍📍LIVE UPDATION ENDED📍📍`
-                            await editMessage(oldMsg, msg_id)
-                            await browser.close()
+                        if(end){
                             clearInterval(watching_match)
+                            await browser.close()
                         }
                     }, 1000 * 30)
+                    page.waitForSelector('span[class="imso_mh__ft-mtch imso-medium-font imso_mh__ft-mtchc"]', {
+                        visible: true,
+                    }).then((e)=>{
+                        end = true
+                    })
                     resolve()
                 } catch (error) {
                     console.log(error);
+                    bot.se
                     setTimeout(() => {
                         start()
                     }, 1000 * 60 * 2);

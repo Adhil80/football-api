@@ -14,29 +14,26 @@ if (!fs.existsSync('users')) {
 
 module.exports = {
     sendMessage: async (text) => {
-        let users = fs.readdirSync(usersPath)
-        users.forEach(async (user) => {
-            if (text.startsWith('TOADAYS MATCHES')) {
-                let msg = await bot.api.sendMessage(user, text)
-                return msg.message_id
-            } else {
-                let msg = await bot.api.sendAnimation(user, 'https://cdn.dribbble.com/users/936002/screenshots/2807776/1.gif', { caption: text })
-                return msg.message_id
-            }
-        })
+        if (text.startsWith('TOADAYS MATCHES')) {
+            let msg = await bot.api.sendMessage(me, text)
+            return msg.message_id
+        } else {
+            let msg = await bot.api.sendAnimation(me, 'https://cdn.dribbble.com/users/936002/screenshots/2807776/1.gif', { caption: text })
+            return msg.message_id
+        }
 
 
     },
     editMessage: async (text, msg_id) => {
-        let users = fs.readdirSync(usersPath)
-        users.forEach(async (user) => {
-            try {
-                let msg = await bot.api.editMessageCaption(user, msg_id, { caption: text })
-                return msg.message_id
-            } catch (error) {
-                bot.api.sendMessage(me, error.message)
-            }
-        })
+        try {
+            let msg = await bot.api.editMessageCaption(me, msg_id, { caption: text })
+            return msg.message_id
+        } catch (error) {
+            bot.api.sendMessage(me, error.message)
+        }
+    },
+    sendError:(err_msg)=>{
+        await bot.api.sendMessage(me,err_msg)
     }
 }
 
@@ -46,6 +43,6 @@ bot.on('message', async (ctx) => {
         await bot.api.sendMessage(ctx.chat.id, 'Thanks for subscribing the bot')
     }
 })
-bot.catch((err)=>{
+bot.catch((err) => {
     console.log(err);
 })
