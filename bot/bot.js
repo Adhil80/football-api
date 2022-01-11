@@ -33,7 +33,7 @@ module.exports = {
         }
     },
     sendError:(err_msg)=>{
-        await bot.api.sendMessage(me,err_msg)
+        bot.api.sendMessage(me,err_msg)
     }
 }
 
