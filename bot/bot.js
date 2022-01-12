@@ -32,8 +32,11 @@ module.exports = {
             bot.api.sendMessage(me, error.message)
         }
     },
-    sendError:(err_msg)=>{
-        bot.api.sendMessage(me,err_msg)
+    sendError: (err_msg) => {
+        bot.api.sendMessage(me, err_msg)
+    },
+    editImage: async (msg_id, text) => {
+        await bot.api.editMessageMedia(me, msg_id, { media: 'https://cdn.dribbble.com/users/936002/screenshots/2807776/1.gif', type: 'photo', caption: text })
     }
 }
 

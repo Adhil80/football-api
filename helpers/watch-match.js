@@ -33,7 +33,11 @@ module.exports = {
                                 await editMessage(oldMsg, msg_id)
                             }
                         }
-                        if(end){
+                        if (end) {
+                            if(msg_id!=null){
+                                oldMsg = `⚽⚽⚽⚽⚽⚽⚽⚽⚽\n${match.league}\n⛳⛳⛳⛳⛳⛳⛳⛳⛳\n${match.teamA} VS ${match.teamB}\n⛳⛳⛳⛳⛳⛳⛳⛳⛳\nTIME : FULL-TIME\n${match.teamA} : ${teamAGoal}\n${match.teamB} : ${teamBGoal}\n⚽⚽⚽⚽⚽⚽⚽⚽⚽\n📍📍LIVE UPDATION ENDED📍📍`
+                                await editMessage(oldMsg,msg_id)    
+                            }
                             clearInterval(watching_match)
                             await browser.close()
                         }
@@ -43,11 +47,11 @@ module.exports = {
                     try {
                         let ftElement = await page.waitForSelector('span[class="imso_mh__ft-mtch imso-medium-font imso_mh__ft-mtchc"]', {
                             visible: true,
-                            timeout:100
+                            timeout: 500
                         })
                         end = true
                     } catch (error) {
-                        
+
                     }
                     resolve()
                 } catch (error) {
