@@ -38,11 +38,17 @@ module.exports = {
                             await browser.close()
                         }
                     }, 1000 * 30)
-                    page.waitForSelector('span[class="imso_mh__ft-mtch imso-medium-font imso_mh__ft-mtchc"]', {
-                        visible: true,
-                    }).then((e)=>{
+
+
+                    try {
+                        let ftElement = await page.waitForSelector('span[class="imso_mh__ft-mtch imso-medium-font imso_mh__ft-mtchc"]', {
+                            visible: true,
+                            timeout:100
+                        })
                         end = true
-                    })
+                    } catch (error) {
+                        
+                    }
                     resolve()
                 } catch (error) {
                     console.log(error);

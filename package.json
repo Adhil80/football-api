@@ -4,7 +4,7 @@
   "description": "This API fetchs football matches and also give live match details",
   "main": "index.js",
   "scripts": {
-    "test": "node test.js",
+    "test": "node /home/adhil/Documents/development/football-api/tests/test.js",
     "start": "node index.js"
   },
   "repository": {
