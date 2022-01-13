@@ -47,19 +47,17 @@ module.exports = {
                     try {
                         let ftElement = await page.waitForSelector('span[class="imso_mh__ft-mtch imso-medium-font imso_mh__ft-mtchc"]', {
                             visible: true,
-                            timeout: 500
+                            timeout:100
                         })
                         end = true
                     } catch (error) {
 
                     }
+                    
                     resolve()
                 } catch (error) {
                     console.log(error);
-                    bot.se
-                    setTimeout(() => {
-                        start()
-                    }, 1000 * 60 * 2);
+                    bot.sendError(error.message)
                 }
             }
             start()
